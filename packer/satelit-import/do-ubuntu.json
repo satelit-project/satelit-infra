@@ -1,0 +1,27 @@
+{
+    "variables": {
+        "do_api_token": null,
+        "do_region": null,
+        "do_size": "s-1vcpu-1gb"
+    },
+    "builders": [{
+        "type": "digitalocean",
+        "api_token": "{{user `do_api_token`}}",
+        "image": "ubuntu-19-10-x64",
+        "region": "{{user `do_region`}}",
+        "size": "{{user `do_size`}}",
+        "box_name": "satelit-import-ubuntu",
+        "ssh_username": "root"
+    }, {
+        "type": "vagrant",
+        "source_path": "ubuntu/eoan64",
+        "provider": "virtualbox",
+        "box_name": "satelit-import-ubuntu",
+        "communicator": "ssh",
+        "add_force": true
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "script": "provision.sh"
+    }]
+}
