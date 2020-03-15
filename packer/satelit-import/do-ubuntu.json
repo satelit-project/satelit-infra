@@ -10,13 +10,14 @@
         "image": "ubuntu-19-10-x64",
         "region": "{{user `do_region`}}",
         "size": "{{user `do_size`}}",
-        "box_name": "satelit-import-ubuntu",
+        "snapshot_name": "satelit-import-ubuntu",
         "ssh_username": "root"
     }, {
         "type": "vagrant",
         "source_path": "ubuntu/eoan64",
         "provider": "virtualbox",
         "box_name": "satelit-import-ubuntu",
+        "output_dir": "build-ubuntu"
         "communicator": "ssh",
         "add_force": true
     }],
