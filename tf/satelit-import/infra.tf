@@ -1,0 +1,83 @@
+variable "access_token" {}
+variable "spaces_key" {}
+variable "spaces_secret" {}
+
+variable "region" {
+  type = string
+}
+
+variable "droplet_size" {
+  type = string
+  default = "s-1vcpu-1gb"
+}
+
+variable "domain" {
+  type = string
+  default = "shitty.moe"
+}
+
+provider "digitalocean" {
+  token = var.access_token
+  spaces_access_id = var.spaces_key
+  spaces_secret_key = var.spaces_secret
+}
+
+data "digitalocean_image" "satelit_import" {
+  name = "satelit-import-ubuntu"
+}
+
+resource "digitalocean_project" "satelit" {
+  name = "Satelit Project"
+  description = "Wanna watch something?"
+  purpose = "Mobile Application"
+  environment = "Production"
+  resources = [
+    digitalocean_droplet.satelit_import.urn,
+    digitalocean_domain.satelit.urn,
+    digitalocean_spaces_bucket.dumped,
+  ]
+}
+
+resource "digitalocean_droplet" "satelit_import" {
+  image = data.digitalocean_image.satelit_import.id
+  name = "satelit-import"
+  region = var.region
+  size = var.droplet_size
+  backups = true
+  monitoring = true
+  private_networking = true
+}
+
+resource "digitalocean_domain" "satelit" {
+  name = var.domain
+  ip_address = digitalocean_droplet.satelit_import.ipv4_address
+}
+
+resource "digitalocean_spaces_bucket" "dumped" {
+  name = "dumped"
+  region = var.region
+  acl = "private"
+}
+
+resource "digitalocean_firewall" "satelit_import" {
+  name = "only-22-and-443-80"
+  droplet_ids = [digitalocean_droplet.satelit_import.id]
+
+  inbound_rule {
+    protocol = "tcp"
+    port_range = "22"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol = "tcp"
+    port_range = "80"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol = "tcp"
+    port_range = "443"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+}
