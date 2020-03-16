@@ -50,7 +50,6 @@ resource "digitalocean_droplet" "satelit_import" {
 
 resource "digitalocean_domain" "satelit" {
   name = var.domain
-  ip_address = digitalocean_droplet.satelit_import.ipv4_address
 }
 
 resource "digitalocean_spaces_bucket" "dumped" {
