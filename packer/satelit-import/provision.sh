@@ -6,7 +6,7 @@ set -euo pipefail
 
 prepare_apt() {
   sudo apt-get update
-  sudo apt-get install \
+  sudo apt-get install -y \
       apt-transport-https \
       ca-certificates \
       curl \
@@ -22,7 +22,7 @@ install_docker() {
       stable"
 
   sudo apt-get update
-  sudo apt-get install docker-ce docker-ce-cli containerd.io
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 }
 
 main() {

@@ -17,7 +17,7 @@
         "source_path": "ubuntu/eoan64",
         "provider": "virtualbox",
         "box_name": "satelit-import-ubuntu",
-        "output_dir": "build-ubuntu"
+        "output_dir": "build-ubuntu",
         "communicator": "ssh",
         "add_force": true
     }],
