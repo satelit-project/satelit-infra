@@ -34,7 +34,7 @@ resource "digitalocean_project" "satelit" {
   resources = [
     digitalocean_droplet.satelit_import.urn,
     digitalocean_domain.satelit.urn,
-    digitalocean_spaces_bucket.dumped,
+    digitalocean_spaces_bucket.dumped.urn,
   ]
 }
 
