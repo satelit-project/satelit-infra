@@ -1,3 +1,3 @@
-FROM postgres:latest
+FROM postgres:12.2
 
-COPY docker/images/postgres-uuid/extensions.sh /docker-entrypoint-initdb.d/
+COPY extensions.sh /docker-entrypoint-initdb.d/
