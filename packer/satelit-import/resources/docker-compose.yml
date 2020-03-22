@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  db:
+    image: "satelit/import-db:12-alpine"
+    volumes:
+      - type: "bind"
+        source: "/mnt/satelit-import/pgdata"
+        target: "/var/lib/postgresql/data/pgdata"
+    logging:
+      driver: "local"
+      options:
+        max-size: "256m"
+        max-file: 3
+        compress: true
+    networks:
+      - "backend"
+    expose:
+      - 5432
+
+  indexer:
+    image: "satelit/satelit-index:0.1"
+    depends_on:
+      - db
+    environment:
+      - "DO_SPACES_KEY"
+      - "DO_SPACES_SECRET"
+      - "DO_SPACES_HOST"
+      - "DO_BUCKET"
+      - "PG_DB_URL=postgresql://postgres@db/satelit_index?sslmode=disable"
+    logging:
+      driver: "local"
+      options:
+        max-size: "256m"
+        max-file: 3
+        compress: true
+    networks:
+      - "backend"
+    expose:
+      - 8080
+
+networks:
+  backend:

@@ -7,13 +7,7 @@ set -euo pipefail
 USER_NAME="$USER_NAME"
 USER_PASSWD="$USER_PASSWD"
 
-doas() {
-  if [[ "$(whoami)" == "vagrant" ]]; then
-    sudo "$@"
-  else
-    "$@"
-  fi
-}
+source "/tmp/common.sh"
 
 add_user() {
   doas useradd -mU -G sudo "$USER_NAME"

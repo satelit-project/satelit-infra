@@ -24,7 +24,7 @@ provider "digitalocean" {
 }
 
 data "digitalocean_image" "satelit_import" {
-  slug = "ubuntu-18-04-x64"
+  name = "satelit-import"
 }
 
 data "digitalocean_ssh_key" "satelit_import" {

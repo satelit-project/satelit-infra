@@ -5,7 +5,7 @@ variable "userpass" { type = string }
 
 source "digitalocean" "ubuntu" {
   api_token = var.do_token
-  image = "ubuntu-19-10-x64"
+  image = "ubuntu-18-04-x64"
   region = var.do_region
   size = "s-1vcpu-1gb"
   snapshot_name = "satelit-import"
@@ -27,15 +27,32 @@ build {
     "source.vagrant.ubuntu"
   ]
 
-  provisioner "shell" {
-    script = "provision/docker.sh"
+  provisioner "file" {
+    source = "provision/common.sh"
+    destination = "/tmp/common.sh"
   }
 
   provisioner "shell" {
-    script = "provision/users.sh"
+    scripts = [
+      "provision/deps.sh",
+      "provision/users.sh",
+      "provision/pre-files.sh"
+    ]
     environment_vars = [
       "USER_NAME=${var.username}",
       "USER_PASSWD=${var.userpass}"
+    ]
+  }
+
+  provisioner "file" {
+    source = "resources/docker-compose.yml"
+    destination = "/home/${var.username}/satelit-import/docker-compose.yml"
+  }
+
+  provisioner "shell" {
+    script = "provision/post-files.sh"
+    environment_vars = [
+      "USER_NAME=${var.username}"
     ]
   }
 }
