@@ -95,4 +95,10 @@ resource "digitalocean_firewall" "satelit_import" {
     port_range = "443"
     destination_addresses = ["0.0.0.0/0", "::/0"]
   }
+
+  outbound_rule {
+    protocol = "udp"
+    port_range = "53"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
 }
