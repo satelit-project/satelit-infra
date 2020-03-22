@@ -1,1 +1,7 @@
 .terraform
+*.log
+
+packer/**/.vagrant
+packer/**/*.box
+packer/**/Vagrantfile
+packer/**/packer_cache
