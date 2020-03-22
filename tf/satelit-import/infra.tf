@@ -61,7 +61,7 @@ resource "digitalocean_spaces_bucket" "junk" {
 }
 
 resource "digitalocean_volume" "satelit_import" {
-  name = "satelit_import"
+  name = "satelit-import"
   region = var.region
   size = 10
   description = "Volume for db, logs, etc."
