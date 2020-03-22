@@ -30,6 +30,9 @@ main() {
   # prepare ssh daemon dir
   doas chown "$me:$me" /etc/ssh
   doas rm /etc/ssh/sshd_config
+
+  # create directory for the postgres container
+  doas mkdir /mnt/satelit_import/pgdata
 }
 
 main "$@"

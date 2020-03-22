@@ -10,8 +10,8 @@ services:
       driver: "local"
       options:
         max-size: "256m"
-        max-file: 3
-        compress: true
+        max-file: "3"
+        compress: "true"
     networks:
       - "backend"
     expose:
@@ -31,8 +31,8 @@ services:
       driver: "local"
       options:
         max-size: "256m"
-        max-file: 3
-        compress: true
+        max-file: "3"
+        compress: "true"
     networks:
       - "backend"
     expose:
