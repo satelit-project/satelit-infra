@@ -40,6 +40,7 @@ resource "digitalocean_project" "satelit" {
     digitalocean_droplet.satelit_import.urn,
     digitalocean_domain.satelit.urn,
     digitalocean_spaces_bucket.junk.urn,
+    digitalocean_volume.satelit_import.urn,
   ]
 }
 
