@@ -27,10 +27,6 @@ data "digitalocean_image" "satelit_import" {
   name = "satelit-import"
 }
 
-data "digitalocean_ssh_key" "satelit_import" {
-  name = "satelit-import-ssh"
-}
-
 resource "digitalocean_project" "satelit" {
   name = "Satelit Project"
   description = "Wanna watch something?"
@@ -49,7 +45,6 @@ resource "digitalocean_droplet" "satelit_import" {
   name = "satelit-import"
   region = var.region
   size = var.droplet_size
-  ssh_keys = [data.digitalocean_ssh_key.satelit_import.id]
   backups = true
   monitoring = true
   private_networking = true
@@ -66,11 +61,12 @@ resource "digitalocean_spaces_bucket" "junk" {
 }
 
 resource "digitalocean_volume" "satelit_import" {
-  name = "satelit-import"
+  name = "satelit_import"
   region = var.region
   size = 10
   description = "Volume for db, logs, etc."
   initial_filesystem_type = "ext4"
+  initial_filesystem_label = "satelit_import"
 }
 
 resource "digitalocean_volume_attachment" "satelit_import" {

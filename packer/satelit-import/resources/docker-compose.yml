@@ -4,7 +4,7 @@ services:
     image: "satelit/import-db:12-alpine"
     volumes:
       - type: "bind"
-        source: "/mnt/satelit-import/pgdata"
+        source: "/mnt/satelit_import/pgdata"
         target: "/var/lib/postgresql/data/pgdata"
     logging:
       driver: "local"

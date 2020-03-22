@@ -19,8 +19,17 @@ main() {
   assert_home_dir
 
   local me="$(whoami)"
-  doas mkdir "/home/$USER_NAME/satelit-import"
-  doas chown -R "$me:$me" "/home/$USER_NAME/satelit-import"
+
+  # prepare user dirs
+  local dirs=( "satelit-import" ".ssh" )
+  for dir in "${dirs[@]}"; do
+    doas mkdir "/home/$USER_NAME/$dir"
+    doas chown "$me:$me" "/home/$USER_NAME/$dir"
+  done
+
+  # prepare ssh daemon dir
+  doas chown "$me:$me" /etc/ssh
+  doas rm /etc/ssh/sshd_config
 }
 
 main "$@"

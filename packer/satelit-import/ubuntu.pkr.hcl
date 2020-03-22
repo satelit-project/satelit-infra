@@ -36,12 +36,23 @@ build {
     scripts = [
       "provision/deps.sh",
       "provision/users.sh",
+      "provision/volumes.sh",
       "provision/pre-files.sh"
     ]
     environment_vars = [
       "USER_NAME=${var.username}",
       "USER_PASSWD=${var.userpass}"
     ]
+  }
+
+  provisioner "file" {
+    source = "resources/sshd_config"
+    destination = "/etc/ssh/sshd_config"
+  }
+
+  provisioner "file" {
+    source = "resources/authorized_keys"
+    destination = "/home/${var.username}/.ssh/authorized_keys"
   }
 
   provisioner "file" {

@@ -10,6 +10,7 @@ source "/tmp/common.sh"
 
 main() {
   doas chown -R "$USER_NAME:$USER_NAME" "/home/$USER_NAME"
+  doas chown -R root:root /etc/ssh
 }
 
 main "$@"
