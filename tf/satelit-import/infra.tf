@@ -39,7 +39,7 @@ resource "digitalocean_project" "satelit" {
   resources = [
     digitalocean_droplet.satelit_import.urn,
     digitalocean_domain.satelit.urn,
-    digitalocean_spaces_bucket.dumped.urn,
+    digitalocean_spaces_bucket.junk.urn,
   ]
 }
 
@@ -58,9 +58,9 @@ resource "digitalocean_domain" "satelit" {
   name = var.domain
 }
 
-resource "digitalocean_spaces_bucket" "dumped" {
-  name = "dumped"
-  region = var.region
+resource "digitalocean_spaces_bucket" "junk" {
+  name = "junk"
+  region = "nyc3"  # hardcoded becauce of limited availability
   acl = "private"
 }
 
