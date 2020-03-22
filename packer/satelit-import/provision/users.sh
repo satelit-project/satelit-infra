@@ -10,7 +10,7 @@ USER_PASSWD="$USER_PASSWD"
 source "/tmp/common.sh"
 
 add_user() {
-  doas useradd -mU -G sudo "$USER_NAME"
+  doas useradd -mU -G sudo -s /bin/bash "$USER_NAME"
   echo "$USER_NAME:$USER_PASSWD" | doas chpasswd
 }
 
