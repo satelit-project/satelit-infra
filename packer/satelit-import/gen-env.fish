@@ -10,7 +10,7 @@ function put_env
     read -P "Provide value for $argv[1]: " $argv[1]
   end
 
-  echo $$argv[1] >> $ENV
+  echo "$argv[1]="$$argv[1] >> $ENV
 end
 
 function main

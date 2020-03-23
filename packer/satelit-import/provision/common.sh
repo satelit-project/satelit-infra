@@ -3,7 +3,7 @@
 #   $@ - command with optional arguments to run.
 doas() {
   if [[ "$(whoami)" == "vagrant" ]]; then
-    sudo "$@"
+    sudo -- "$@"
   else
     "$@"
   fi

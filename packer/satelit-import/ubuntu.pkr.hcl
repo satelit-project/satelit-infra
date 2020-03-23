@@ -27,8 +27,8 @@ build {
     "source.vagrant.ubuntu"
   ]
 
-  provisioner "local-shell" {
-    script = "gen-env.fish"
+  provisioner "shell-local" {
+    script = "./gen-env.fish"
   }
 
   provisioner "file" {
