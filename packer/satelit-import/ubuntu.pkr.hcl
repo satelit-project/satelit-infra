@@ -27,6 +27,10 @@ build {
     "source.vagrant.ubuntu"
   ]
 
+  provisioner "local-shell" {
+    script = "gen-env.fish"
+  }
+
   provisioner "file" {
     source = "provision/common.sh"
     destination = "/tmp/common.sh"
@@ -58,6 +62,11 @@ build {
   provisioner "file" {
     source = "resources/docker-compose.yml"
     destination = "/home/${var.username}/satelit-import/docker-compose.yml"
+  }
+
+  provisioner "file" {
+    source = "resources/.env"
+    destination = "/home/${var.username}/satelit-import/.env"
   }
 
   provisioner "shell" {

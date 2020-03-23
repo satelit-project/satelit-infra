@@ -7,11 +7,7 @@ services:
         source: "/mnt/satelit_import/pgdata"
         target: "/var/lib/postgresql/data/pgdata"
     logging:
-      driver: "local"
-      options:
-        max-size: "256m"
-        max-file: "3"
-        compress: "true"
+      driver: "journald"
     networks:
       - "backend"
     expose:
@@ -21,18 +17,11 @@ services:
     image: "satelit/satelit-index:0.1"
     depends_on:
       - db
+    env_file: .env
     environment:
-      - "DO_SPACES_KEY"
-      - "DO_SPACES_SECRET"
-      - "DO_SPACES_HOST"
-      - "DO_BUCKET"
       - "PG_DB_URL=postgresql://postgres@db/satelit_index?sslmode=disable"
     logging:
-      driver: "local"
-      options:
-        max-size: "256m"
-        max-file: "3"
-        compress: "true"
+      driver: "journald"
     networks:
       - "backend"
     expose:
