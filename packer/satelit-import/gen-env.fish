@@ -21,6 +21,7 @@ function main
   put_env DO_SPACES_KEY
   put_env DO_SPACES_SECRET
   put_env DO_SPACES_HOST
+  put_env DO_SPACES_REGION
   put_env DO_BUCKET
 end
 
