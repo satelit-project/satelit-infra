@@ -20,7 +20,7 @@ services:
       MINIO_ACCESS_KEY: "AKIAIOSFODNN7EXAMPLE"
       MINIO_SECRET_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     volumes:
-      - "./.mount/minio:/s3"
+      - "./.mount/minio/data:/s3"
     logging:
       driver: "journald"
     ports:
