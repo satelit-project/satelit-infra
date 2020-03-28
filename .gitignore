@@ -6,3 +6,5 @@ packer/**/.vagrant
 packer/**/*.box
 packer/**/Vagrantfile
 packer/**/packer_cache
+
+docker/localstack/satelit-import/.mount

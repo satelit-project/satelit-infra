@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  db:
+    image: "satelit/import-db:12-alpine"
+    volumes:
+      - "./.mount/pgdata:/var/lib/postgresql/pgdata"
+    logging:
+      driver: "journald"
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+    restart: "always"
+
+  s3:
+    image: "minio/minio"
+    entrypoint: "sh"
+    command: "-c 'mkdir -p /s3/satelit && /usr/bin/minio server /s3'"
+    environment:
+      MINIO_ACCESS_KEY: "AKIAIOSFODNN7EXAMPLE"
+      MINIO_SECRET_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    volumes:
+      - "./.mount/minio:/s3"
+    logging:
+      driver: "journald"
+    ports:
+      - "9000:9000"
+    networks:
+      - backend
+    restart: "always"
+
+networks:
+  backend:
