@@ -3,7 +3,7 @@ services:
   db:
     image: "satelit/import-db:12-alpine"
     volumes:
-      - "./.mount/pgdata:/var/lib/postgresql/pgdata"
+      - "./.mount/pgdata:/var/lib/postgresql/data/pgdata"
     logging:
       driver: "journald"
     ports:
