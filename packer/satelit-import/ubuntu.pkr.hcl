@@ -27,10 +27,6 @@ build {
     "source.vagrant.ubuntu"
   ]
 
-  provisioner "shell-local" {
-    script = "./gen-env.fish"
-  }
-
   provisioner "file" {
     source = "provision/common.sh"
     destination = "/tmp/common.sh"
