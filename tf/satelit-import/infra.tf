@@ -27,6 +27,10 @@ data "digitalocean_image" "satelit_import" {
   name = "satelit-import"
 }
 
+data "digitalocean_ssh_key" "satelit_import_ssh" {
+  name = "satelit-import-ssh"
+}
+
 resource "digitalocean_project" "satelit" {
   name = "Satelit Project"
   description = "Wanna watch something?"
@@ -48,6 +52,9 @@ resource "digitalocean_droplet" "satelit_import" {
   backups = true
   monitoring = true
   private_networking = true
+  ssh_keys = [
+    data.digitalocean_ssh_key.satelit_import_ssh.id
+  ]
 }
 
 resource "digitalocean_domain" "satelit" {
