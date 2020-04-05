@@ -29,5 +29,51 @@ services:
       - 8080
     restart: unless-stopped
 
+  importer:
+    image: "satelit/satelit-import:0.1"
+    depends_on:
+      - db
+    env_file: .env
+    environment:
+      - "PG_DB_URL=postgresql://postgres@db/satelit_import?sslmode=disable"
+    logging:
+      driver: "journald"
+    networks:
+      - "backend"
+    expose:
+      - 9060
+    restart: unless-stopped
+
+  scraper:
+    image: "satelit/satelit-scraper:0.1"
+    env_file: .env
+    environment:
+      - "ST_IMPORTER_URL=importer:9060"
+    logging:
+      driver: "journald"
+    networks:
+      - "backend"
+    expose:
+      - 9050
+    restart: unless-stopped
+
+  scheduler:
+    image: "satelit/satelit-scheduler:0.1"
+    depends_on:
+      - indexer
+      - importer
+      - scraper
+    env_file: .env
+    environment:
+      - "PG_DB_URL=postgresql://postgres@db/satelit_scheduler?sslmode=disable"
+      - "ST_INDEXER_URL=http://indexer:8080"
+      - "ST_IMPORT_URL=http://importer:9060"
+      - "ST_SCRAPER_URL=http://scraper:9050"
+    logging:
+      driver: "journald"
+    networks:
+      - "backend"
+    restart: unless-stopped
+
 networks:
   backend:
