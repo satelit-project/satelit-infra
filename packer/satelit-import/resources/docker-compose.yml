@@ -30,7 +30,7 @@ services:
     restart: unless-stopped
 
   importer:
-    image: "satelit/satelit-import:0.1"
+    image: "satelit/satelit-import:0.2"
     depends_on:
       - db
     env_file: .env
@@ -45,7 +45,7 @@ services:
     restart: unless-stopped
 
   scraper:
-    image: "satelit/satelit-scraper:0.1"
+    image: "satelit/satelit-scraper:0.1.1"
     env_file: .env
     environment:
       - "ST_IMPORTER_URL=importer:9060"
