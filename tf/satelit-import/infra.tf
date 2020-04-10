@@ -91,6 +91,12 @@ resource "digitalocean_firewall" "satelit_import" {
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
+  inbound_rule {
+    protocol = "udp"
+    port_range = "60000"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
   outbound_rule {
     protocol = "tcp"
     port_range = "80"

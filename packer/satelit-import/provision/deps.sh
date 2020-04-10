@@ -46,10 +46,16 @@ install_monitoring_agent() {
   doas apt-get install do-agent
 }
 
+install_mosh() {
+  doas apt-get update
+  doas apt-get install mosh
+}
+
 main() {
   install_docker
   install_compose
   install_monitoring_agent
+  install_mosh
 }
 
 main "$@"
